@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Details Component with Fixed Animations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 640px) {
+            .sm\:grid-cols-1 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+            .sm\:px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .sm\:py-8 {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .expandable-content.expanded {
+            max-height: 1000px; /* Adjust this value based on your content */
+            transition: max-height 0.5s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 text-gray-900 antialiased">
+        <div class="max-w-7xl mx-auto flex flex-col gap-y-4">
+            <div class="mt-8 flex justify-start">
+                <button 
+                    (click)="goBack()"
+                    class="inline-flex items-center text-sm px-6 py-3 border border-transparent text-sm font-medium rounded-md text-white
+                    bg-slate-600 hover:bg-slate-800 focus:outline-none focus:ring-2
+                    focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                >
+                    <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>Back to Search</span>
+                </button>
+            </div>
+            <div *ngIf="details; else loading" class="bg-white border-slate-100 border rounded-md overflow-hidden">
+                <!-- Header -->
+                <div class="px-4 sm:px-8 py-4 bg-gradient-to-r bg-slate-700 text-white">
+                    <p class="text-sm font-mono break-all opacity-80 flex items-center">
+                        <span class="flex-1 !text-white">{{ details.itxHash }}</span>
+                    </p>
+                </div>
+
+                <!-- Main Content -->
+                <div class="p-4 sm:p-8 space-y-8">
+                    <!-- General Information Section -->
+                    <section>
+                        <h2 class="text-sm font-semibold text-gray-700 mb-6 flex items-center">
+                            <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Node information</span>
+                        </h2>
+                        <dl class="grid grid-cols-1 pb-4 gap-x-6 gap-y-6 sm:grid-cols-2">
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500 flex items-center mb-2">
+                                    <span [innerHTML]="getIcon('node')" class="w-5 h-5 mr-3 flex-shrink-0"></span>
+                                    <span>Node address</span>
+                                </dt>
+                                <dd class="text-sm text-gray-900 break-all font-mono px-8 py-1 h-full rounded-md leading-relaxed">{{ details.node }}</dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500 flex items-center mb-2">
+                                    <span [innerHTML]="getIcon('commitment')" class="w-5 h-5 mr-3 flex-shrink-0"></span>
+                                    <span>Signed execution commitment</span>
+                                </dt>
+                                <dd class="text-sm font-mono text-gray-900 break-all px-8 h-full py-1 rounded-md leading-relaxed">{{ details.commitment }}</dd>
+                            </div>
+                        </dl>
+                    </section>
+
+                    <!-- Payment Info Section -->
+                    <section class="border-y border rounded-md border-slate-50">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out rounded-md p-4" (click)="togglePaymentInfo()">
+                            <h2 class="text-sm font-semibold text-gray-700 flex items-center mb-2 sm:mb-0">
+                                <span [innerHTML]="getIcon('token')" class="w-5 h-5 mr-3 flex-shrink-0"></span>
+                                <span>Transaction Fee</span>
+                            </h2>
+                            <div class="flex flex-col sm:flex-row gap-y-2 sm:gap-x-3 items-start sm:items-center">
+                                <div class="text-xs uppercase font-semibold text-gray-600 flex flex-wrap gap-2">
+                                    <span class="px-5 py-2 bg-blue-100 text-blue-800 rounded-md font-semibold">${{ details.paymentInfo.tokenValue }}</span>
+                                    <span class="px-5 py-2 bg-indigo-100 text-indigo-800 rounded-md font-semibold">{{ getTokenName(details.paymentInfo.token) }}</span>
+                                    <span class="px-5 py-2 bg-purple-100 text-purple-800 rounded-md font-semibold">{{ getChainName(details.paymentInfo.chainId) }}</span>
+                                </div>
+                                <svg [@rotate]="isPaymentInfoExpanded ? 'expanded' : 'collapsed'" class="w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable-content" [ngClass]="{'expanded': isPaymentInfoExpanded}">
+                            <div class="-mx-4 bg-gray-50 py-8 px-10 rounded-md">
+                                <dl class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+                                    <div *ngFor="let item of getPaymentInfoItems()" class="sm:col-span-1">
+                                        <dt class="text-sm font-medium text-gray-500 flex items-center mb-2">
+                                            <span [innerHTML]="getIcon(item.key)" class="w-5 h-5 mr-2 flex-shrink-0"></span>
+                                            <span>{{ item.key }}</span>
+                                        </dt>
+                                        <dd class="text-sm !font-mono text-gray-900 break-all bg-white p-3 rounded-md leading-relaxed">
+                                            <ng-container [ngSwitch]="item.key">
+                                                <ng-container *ngSwitchCase="'Chain Id'">
+                                                    <span class="font-medium !font-mono">{{ getChainName(item.value) }}</span> ({{ item.value }})
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'Token'">
+                                                    <span class="font-medium !font-mono">{{ getTokenName(item.value) }}</span> ({{ item.value }})
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>{{ item.value }}</ng-container>
+                                            </ng-container>
+                                        </dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- User Operations Section -->
+                    <section class="border-slate-100 pt-8">
+                        <h2 class="text-sm font-semibold text-gray-700 mb-6 flex items-center">
+                            <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <span>User Operations</span>
+                        </h2>
+                        <div class="space-y-2">
+                            <div *ngFor="let userOp of details.userOps; let i = index" 
+                                class="border border-slate-100 rounded-md overflow-hidden">
+                                <div (click)="toggleUserOp(i)" 
+                                    class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 bg-white cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out">
+                                    <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+                                        <span class="text-sm font-medium text-gray-700">#{{ i + 1 }}</span>
+                                        <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-md">{{ getChainName(userOp.chainId) }} ({{ userOp.chainId }})</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span [innerHTML]="getStatusIcon(userOp.executionStatus)" class="w-5 h-5 flex-shrink-0"></span>
+                                        <span class="text-xs uppercase font-semibold" 
+                                            [ngClass]="{
+                                                'text-green-600': userOp.executionStatus === 'SUCCESS',
+                                                'text-red-600': userOp.executionStatus === 'FAILURE',
+                                                'text-yellow-600': userOp.executionStatus === 'PENDING'
+                                            }">
+                                            {{ userOp.executionStatus }}
+                                        </span>
+                                        <svg [@rotate]="getExpandState(i)" 
+                                            class="w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0" 
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="expandable-content" [ngClass]="{'expanded': getExpandState(i) === 'expanded'}">
+                                    <div class="px-4 sm:px-6 py-4 bg-gray-50">
+                                        <dl class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                            <div *ngFor="let item of getUserOpItems(userOp)" class="sm:col-span-1">
+                                                <dt class="text-sm font-medium text-gray-500 mb-2 flex items-center">
+                                                    <span [innerHTML]="getIcon(item.key)" class="w-5 h-5 mr-3 flex-shrink-0"></span>
+                                                    <span>{{ item.key }}</span>
+                                                </dt>
+                                                <dd class="text-sm text-gray-900 break-all bg-white p-3 rounded-md leading-relaxed">{{ item.value }}</dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <ng-template #loading>
+                <div class="bg-white shadow-sm rounded-md p-8">
+                    <div class="animate-pulse space-y-6">
+                        <div class="h-8 bg-gray-200 rounded w-3/4"></div>
+                        <div class="space-y-3">
+                            <div class="h-5 bg-gray-200 rounded"></div>
+                            <div class="h-5 bg-gray-200 rounded w-5/6"></div>
+                        </div>
+                        <div class="h-64 bg-gray-200 rounded"></div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</body>
+</html>
