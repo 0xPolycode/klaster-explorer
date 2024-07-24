@@ -35,7 +35,7 @@
         <div class="max-w-7xl mx-auto flex flex-col gap-y-4">
             <div class="mt-8 flex justify-start">
                 <button 
-                    (click)="goBack()"
+                    routerLink="/"
                     class="inline-flex items-center text-sm px-6 py-3 border border-transparent text-sm font-medium rounded-md text-white
                     bg-slate-600 hover:bg-slate-800 focus:outline-none focus:ring-2
                     focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
@@ -134,9 +134,9 @@
                             </svg>
                             <span>User Operations</span>
                         </h2>
-                        <div class="space-y-2">
+                        <div class="border-t border-slate-100">
                             <div *ngFor="let userOp of details.userOps; let i = index" 
-                                class="border border-slate-100 rounded-md overflow-hidden">
+                                class="border-b border-x border-slate-100 overflow-hidden">
                                 <div (click)="toggleUserOp(i)" 
                                     class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 bg-white cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out">
                                     <div class="flex items-center space-x-4 mb-2 sm:mb-0">
@@ -168,7 +168,7 @@
                                                     <span [innerHTML]="getIcon(item.key)" class="w-5 h-5 mr-3 flex-shrink-0"></span>
                                                     <span>{{ item.key }}</span>
                                                 </dt>
-                                                <dd class="text-sm text-gray-900 break-all bg-white p-3 rounded-md leading-relaxed">{{ item.value }}</dd>
+                                                <dd class="text-sm text-gray-900 break-all max-h-20 overflow-y-scroll bg-white p-3 rounded-md leading-relaxed">{{ item.value }}</dd>
                                             </div>
                                         </dl>
                                     </div>
