@@ -55,6 +55,6 @@ export class HashService {
 
   getHashDetails(hash: string): Observable<HashDetails> {
     const url = this.nodeService.getNodeUrl()
-    return this.http.get<HashDetails>(`${url}/${hash}`);
+    return this.http.get<HashDetails>(`${url}/v2/explorer/${hash}`);
   }
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class NodeUrlService {
   private readonly NODE_URL_KEY = 'nodeUrl';
-  private readonly DEFAULT_URL = 'https://klaster-node.polycode.sh/v2/explorer';
+  private readonly DEFAULT_URL = 'https://klaster-node.polycode.sh/';
 
   constructor() { }
 

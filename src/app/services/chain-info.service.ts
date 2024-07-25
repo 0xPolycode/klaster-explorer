@@ -41,7 +41,7 @@ export class ChainInfoService {
       alert("Can't fetch node URL");
       return;
     }
-    this.dataCache$ = this.http.get<ApiResponse>(url).pipe(shareReplay(1));
+    this.dataCache$ = this.http.get<ApiResponse>(`${url}/info/`).pipe(shareReplay(1));
   }
 
   getChainName(chainId: string): Observable<string> {
