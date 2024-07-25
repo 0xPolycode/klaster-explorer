@@ -19,21 +19,22 @@ import { trigger, transition, style, animate } from '@angular/animations';
               <label for="hash" class="sr-only">Transaction Hash</label>
               <input id="hash" name="hash" type="text" required
                 [(ngModel)]="hash"
-                class="appearance-none rounded-none text-center font-mono
+                class="appearance-none rounded-none text-center
                  relative block w-full px-8 py-4 !outline-none border
-                  border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md rounded-br-md focus:z-10 sm:text-sm"
+                  border-slate-100 placeholder-gray-500 text-gray-900 rounded-t-md focus:z-10 sm:text-sm"
                 placeholder="Paste interchain transaction hash"
                 (input)="onInput()"
                 [@inputHighlight]="inputState">
+
             </div>
           </div>
 
           <div class="w-full flex flex-row justify-center" >
             <button type="submit"
-              class="group relative cursor-pointer w-1/2 flex justify-center py-4 px-8 uppercase border border-transparent text-sm font-semibold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+              class="group relative cursor-pointer w-1/2 flex justify-center py-4 px-8 border border-transparent text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
               [disabled]="!isValidHash()">
               <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 text-white transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                 </svg>
               </span>
@@ -71,6 +72,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class SearchComponent {
   hash: string = '';
+  nodeUrl: string = ''
   showError: boolean = false;
   inputState: string = 'inactive';
 
@@ -78,6 +80,13 @@ export class SearchComponent {
 
   searchHash() {
     if (this.isValidHash()) {
+      if(this.nodeUrl.length > 0) {
+        this.router.navigate(['/details', this.hash], {
+          queryParams: {
+            nodeUrl: this.nodeUrl
+          }
+        })
+      }
       this.router.navigate(['/details', this.hash]);
     } else {
       this.showError = true;

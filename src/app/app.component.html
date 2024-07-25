@@ -1,2 +1,13 @@
 <!-- app.component.html -->
 <router-outlet></router-outlet>
+
+<div *ngIf="isSetNodeVisible">
+  <app-set-node-url></app-set-node-url>
+</div>
+
+<div class="fixed bottom-0 left-0 w-screen flex flex-row justify-end px-8 py-4 ">
+  <div (click)="toggleIsNodeVisible()" class="max-w-lg px-8 text-center cursor-pointer bg-indigo-50 text-indigo-700 
+   hover:bg-indigo-700 hover:text-white text-sm transition-all font-medium py-3 rounded-md flex flex-col gap-y-4">
+    <div class="text-center">Set custom node URL</div>
+  </div>
+</div>

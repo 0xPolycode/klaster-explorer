@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NodeUrlService } from './node.service';
 
 interface PaymentInfo {
   chainId: string;
@@ -49,11 +50,11 @@ interface HashDetails {
   providedIn: 'root'
 })
 export class HashService {
-  private apiUrl = 'https://klaster-node.polycode.sh/v2/explorer';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private nodeService: NodeUrlService) {}
 
   getHashDetails(hash: string): Observable<HashDetails> {
-    return this.http.get<HashDetails>(`${this.apiUrl}/${hash}`);
+    const url = this.nodeService.getNodeUrl()
+    return this.http.get<HashDetails>(`${url}/${hash}`);
   }
 }

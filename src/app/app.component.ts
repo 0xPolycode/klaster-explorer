@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Klaster | Interchain Transaction Explorer';
+  isSetNodeVisible = false
+
+  toggleIsNodeVisible() {
+    this.isSetNodeVisible = true
+  }
 }
