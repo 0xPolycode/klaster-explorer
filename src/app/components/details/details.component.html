@@ -267,9 +267,9 @@
                           userOp.chainId
                         }})</span
                       >
-                      <a  (click)="$event.stopPropagation()" 
+                      <a *ngIf="userOp.executionData" (click)="$event.stopPropagation()" 
                       target="_blank" 
-                      href="https://scope.sh/{{userOp.chainId}}/op/{{userOp.userOpHash}}" 
+                      href="https://scope.sh/{{userOp.chainId}}/tx/{{userOp.executionData}}" 
                       class="underline hover:text-indigo-700 text-slate-500 flex flex-row gap-x-2 items-center">
                         {{userOp.userOpHash}}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
