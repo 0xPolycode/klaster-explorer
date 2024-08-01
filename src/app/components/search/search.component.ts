@@ -6,7 +6,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 @Component({
   selector: 'app-search',
   template: `
-    <div class="min-h-screen bg-slate-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gradient-to-b from-[#fafbff] to-[#fefaff] flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl w-full space-y-8">
         <div class="text-center">
           <h2 class="mt-6 text-4xl flex flex-row justify-center font-extrabold text-gray-900 tracking-tight">
@@ -31,7 +31,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
           <div class="w-full flex flex-row justify-center" >
             <button type="submit"
-              class="group relative cursor-pointer w-1/2 flex justify-center py-4 px-8 border border-transparent text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+              class="group relative cursor-pointer w-1/2 flex justify-center py-4 px-8 border border-transparent text-sm font-normal rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
               [disabled]="!isValidHash()">
               <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 text-white transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">

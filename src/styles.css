@@ -10,7 +10,7 @@
 
 /* Apply the font to the entire body */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: monospace;
 }
 
 /* You can also create utility classes for different font weights if needed */
@@ -22,13 +22,6 @@ body {
   font-weight: 400;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
 
 .font-bold {
   font-weight: 700;

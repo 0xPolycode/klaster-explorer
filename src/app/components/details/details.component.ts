@@ -190,10 +190,7 @@ export class DetailsComponent implements OnInit {
   }
 
   formatKey(key: string): string {
-    return key
-      .split(/(?=[A-Z])/)
-      .join(' ')
-      .replace(/^\w/, (c) => c.toUpperCase());
+    return key.replace('userOp', '')
   }
 
   toggleUserOp(index: number) {
