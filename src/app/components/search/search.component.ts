@@ -14,13 +14,13 @@ import { trigger, transition, style, animate } from '@angular/animations';
           </h2>
         </div>
         <form class="mt-8 space-y-6" (ngSubmit)="searchHash()">
-          <div class="rounded-md shadow-sm -space-y-px">
+          <div class="rounded-md border -space-y-px">
             <div>
               <label for="hash" class="sr-only">Transaction Hash</label>
               <input id="hash" name="hash" type="text" required
                 [(ngModel)]="hash"
-                class="appearance-none rounded-none text-center
-                 relative block w-full px-8 py-4 !outline-none border
+                class="appearance-none rounded-md text-center
+                 relative block w-full px-8 py-4 !outline-none 
                   border-slate-100 placeholder-gray-500 text-gray-900 rounded-t-md focus:z-10 sm:text-sm"
                 placeholder="Paste interchain transaction hash"
                 (input)="onInput()"

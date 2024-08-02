@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HashService } from '../../services/hash.service';
 import { ChainInfoService } from '../../services/chain-info.service';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, forkJoin, timer } from 'rxjs';
+import { delay, expand, filter, map, repeat, skipWhile, switchMap, take, takeLast } from 'rxjs/operators';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   trigger,
@@ -100,7 +100,16 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       const hash: string = params['hash'];
-      this.hashService.getHashDetails(hash).subscribe(
+      this.hashService.getHashDetails(hash).pipe(
+        expand(res => {
+          const retry = res.userOps.map(x => x.executionStatus).includes('PENDING') 
+          if(retry) {
+            return timer(2000).pipe(
+              switchMap(x => this.hashService.getHashDetails(hash))
+            )
+          }return EMPTY
+        }),
+      ).subscribe(
         (data: HashDetails) => {
           this.details = data;
           this.expandedUserOps = new Array(data.userOps.length).fill(false);
