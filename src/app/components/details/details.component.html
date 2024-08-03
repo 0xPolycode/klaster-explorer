@@ -32,17 +32,13 @@
   </head>
   <body>
     <div
-      class="min-h-screen bg-gradient-to-b from-[#fafbff] to-[#fefaff] py-12 px-4 sm:px-6 lg:px-8 text-gray-900 antialiased"
+      class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 text-slate-900 antialiased"
     >
       <div class="max-w-7xl mx-auto flex flex-col gap-y-4">
         <div class="mt-8 flex justify-start">
           <button
             routerLink="/"
-            class="inline-flex items-center px-6 py-3 border
-             border-transparent text-xs font-normal rounded-md
-              text-white  hover:bg-[#16182a] bg-[#30345a]
-               focus:outline-none focus:ring-2 focus:ring-offset-2
-                focus:ring-indigo-500 transition duration-150 ease-in-out"
+            class="inline-flex items-center px-6 py-3 border border-slate-200 text-xs font-normal rounded-md text-slate-800 bg-slate-50 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
           >
             <svg
               class="w-5 h-5 mr-3 flex-shrink-0"
@@ -63,63 +59,106 @@
         </div>
         <div
           *ngIf="details; else loading"
-          class="bg-white rounded-sm shadow-sm overflow-hidden"
+          class="bg-white border border-slate-200 rounded-lg overflow-hidden"
         >
           <!-- Header -->
-          <div
-            class="px-4 sm:px-8 py-4 bg-[#30345a] text-white"
-          >
-            <p class="text-sm font-mono break-all flex items-center">
-              <span class="flex-1 !text-white">{{ details.itxHash }}</span>
-            </p>
+          <div class="px-4 sm:px-8 py-6 flex flex-row bg-slate-50 border-b border-slate-100 text-slate-800">
+            <div
+              class="mb-1 font-semibold text-sm flex flex-row gap-x-2 items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-8 w-8 mr-1"
+              >
+                <path d="m10 16 1.5 1.5" />
+                <path d="m14 8-1.5-1.5" />
+                <path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993" />
+                <path d="m16.5 10.5 1 1" />
+                <path d="m17 6-2.891-2.891" />
+                <path d="M2 15c6.667-6 13.333 0 20-6" />
+                <path d="m20 9 .891.891" />
+                <path d="M3.109 14.109 4 15" />
+                <path d="m6.5 12.5 1 1" />
+                <path d="m7 18 2.891 2.891" />
+                <path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993" />
+              </svg>
+            </div>
+            <span class="text-xs flex flex-col ml-2 font-mono break-all">
+              <div class="font-semibold mb-1">Interchain Transaction Hash</div>
+              <span class="flex-1 !text-slate-500">{{ details.itxHash }}</span>
+            </span>
           </div>
 
           <!-- Main Content -->
-          <div class="p-4 sm:p-8 space-y-8">
+          <div class="p-4 sm:p-8 space-y-4">
             <!-- General Information Section -->
             <section>
-              <h2
-                class="text-sm font-normal text-gray-700 mb-6 flex items-center"
-              >
-                <svg
-                  class="w-5 h-5 mr-3 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <span>Node information</span>
-              </h2>
               <dl class="grid grid-cols-1 pb-4 gap-x-6 gap-y-6 sm:grid-cols-2">
                 <div class="sm:col-span-1">
                   <dt
-                    class="text-sm font-normal text-gray-500 flex items-center mb-1"
+                    class="text-sm font-semibold text-slate-800 flex items-center"
                   >
-
-                    <span>Node address</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="w-4 h-4 mr-2"
+                    >
+                      <rect width="8" height="8" x="3" y="3" rx="2" />
+                      <path d="M7 11v4a2 2 0 0 0 2 2h4" />
+                      <rect width="8" height="8" x="13" y="13" rx="2" />
+                    </svg>
+                    <span>Executing node address</span>
                   </dt>
-                  <dd
-                    class="text-xs text-gray-900 break-all font-mono h-full rounded-md leading-relaxed"
-                  >
-                    {{ details.node }}
+                  <dd>
+                    <a
+                      href="https://app.zerion.io/{{ details.node }}/overview"
+                      target="_blank"
+                      class="text-xs text-slate-500 ml-6 break-all font-mono h-full underline hover:text-indigo-600 rounded-md leading-relaxed"
+                    >
+                      {{ details.node }}
+                    </a>
                   </dd>
                 </div>
                 <div class="sm:col-span-1">
                   <dt
-                    class="text-sm font-normal text-gray-500 flex items-center mb-1"
+                    class="text-sm font-semibold text-slate-800 flex items-center"
                   >
-
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-4 w-4 mr-2"
+                    >
+                      <path
+                        d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"
+                      />
+                      <path d="M3 21h18" />
+                    </svg>
                     <span>Signed execution commitment</span>
                   </dt>
                   <dd
-                    class="text-xs font-mono text-gray-900 break-all h-full rounded-md leading-relaxed"
+                    class="text-xs mt-1 ml-6 font-mono text-slate-500 break-all h-full rounded-md leading-relaxed"
                   >
                     {{ details.commitment }}
                   </dd>
@@ -127,51 +166,86 @@
               </dl>
             </section>
 
+            <h2
+              class="text-sm font-semibold text-slate-700 flex items-center pb-0 sm:mb-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4 mr-2"
+              >
+                <path
+                  d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+                />
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                <path d="M12 17.5v-11" />
+              </svg>
+              <span>Transaction Fee Operation</span>
+            </h2>
             <!-- Payment Info Section -->
-            <section class="border-y border-slate-100">
+            <section class="border border-slate-100 mt-0 pt-0">
               <div
-                class="flex flex-col sm:flex-row justify-between 
-                items-start sm:items-center cursor-pointer
-                 hover:bg-gray-50 transition duration-150 ease-in-out rounded-md py-4 px-2" 
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer hover:bg-slate-50 transition duration-150 ease-in-out rounded-md py-2 px-2"
                 (click)="togglePaymentInfo()"
               >
-                <h2
-                  class="text-sm font-normal text-gray-700 flex items-center mb-2 sm:mb-0"
-                >
-                  <span
-                    [innerHTML]="getIcon('token')"
-                    class="w-5 h-5 mr-3 flex-shrink-0"
-                  ></span>
-                  <span>Transaction Fee</span>
-                </h2>
                 <div
                   class="flex flex-col sm:flex-row gap-y-2 sm:gap-x-3 items-start sm:items-center"
                 >
                   <div
-                    class="text-xs uppercase font-normal text-gray-600 flex flex-wrap gap-2"
+                    class="text-xs uppercase font-normal text-slate-600 flex flex-wrap gap-2"
                   >
                     <span
-                      class="px-5 py-2 bg-blue-100 text-blue-800 rounded-md font-normal"
+                      class="px-5 py-2 bg-slate-50 text-blue-800 rounded-sm font-medium"
                       >${{ details.paymentInfo.tokenValue }}</span
                     >
                     <span
-                      class="px-5 py-2 flex flex-row items-center gap-x-2 bg-indigo-100 text-indigo-800 rounded-md font-normal"
-                      >
-                      <img class="h-4 w-4" src="../../../assets/tokens/{{getTokenName(details.paymentInfo.token).toLowerCase()}}.png" alt="" srcset="">
+                      class="px-5 py-2 flex flex-row items-center gap-x-2 bg-slate-50 text-indigo-800 rounded-sm font-medium"
+                    >
+                      <img
+                        class="h-4 w-4"
+                        src="../../../assets/tokens/{{
+                          getTokenName(details.paymentInfo.token).toLowerCase()
+                        }}.png"
+                        alt=""
+                        srcset=""
+                      />
 
                       {{ getTokenName(details.paymentInfo.token) }}</span
                     >
                     <span
-                      class="px-5 py-2 flex flex-row items-center gap-x-2 bg-purple-100 text-purple-800 rounded-md font-normal"
-                      >
-                      <img class="h-4 w-4" src="../../../assets/networks/{{getChainName(details.paymentInfo.chainId).toLowerCase()}}.svg" alt="" srcset="">
-                      {{ getChainName(details.paymentInfo.chainId) }}
-                      </span
+                      class="px-5 py-2 flex flex-row items-center gap-x-2 bg-slate-50 normal-case text-purple-800 rounded-sm font-medium"
                     >
+          
+                      <img
+                        class="h-4 w-4"
+                        src="../../../assets/networks/{{
+                          getChainName(
+                            details.paymentInfo.chainId
+                          ).toLowerCase()
+                        }}.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      {{ getChainName(details.paymentInfo.chainId) }}
+                    </span>
+                    <a target="_blank"  href="https://scope.sh/{{ paymentUserOp.chainId }}/op/{{
+                      paymentUserOp.userOpHash
+                    }}" (click)="$event.stopPropagation()" class="flex hover:text-indigo-600 flex-row items-center normal-case underline" *ngIf="details.userOps.at(0) as paymentUserOp">
+                      {{paymentUserOp.userOpHash}}
+                    </a>
                   </div>
+                </div>
+                <div>
                   <svg
                     [@rotate]="isPaymentInfoExpanded ? 'expanded' : 'collapsed'"
-                    class="w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0"
+                    class="w-5 h-5 mr-2 text-slate-400 transition-transform duration-200 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -191,14 +265,14 @@
                 class="expandable-content"
                 [ngClass]="{ expanded: isPaymentInfoExpanded }"
               >
-                <div class="-mx-4 bg-gray-50 py-8 px-10 rounded-md">
-                  <dl class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+                <div class="-mx-4 rounded-md">
+                  <dl class="grid grid-cols-1 sm:grid-cols-2">
                     <div
                       *ngFor="let item of getPaymentInfoItems()"
-                      class="sm:col-span-1"
+                      class="sm:col-span-1 border-b border-slate-50 px-10 py-2"
                     >
                       <dt
-                        class="text-sm font-normal text-gray-500 flex items-center mb-2"
+                        class="text-sm font-normal text-slate-800 flex items-center"
                       >
                         <span
                           [innerHTML]="getIcon(item.key)"
@@ -207,7 +281,7 @@
                         <span>{{ item.key }}</span>
                       </dt>
                       <dd
-                        class="text-sm !font-mono text-gray-900 break-all bg-white p-3 rounded-md leading-relaxed"
+                        class="text-sm !font-mono text-slate-500 break-al ml-7 rounded-md leading-relaxed"
                       >
                         <ng-container [ngSwitch]="item.key">
                           <ng-container *ngSwitchCase="'Chain Id'">
@@ -234,30 +308,34 @@
             </section>
 
             <!-- User Operations Section -->
-            <section class="border-slate-100 pt-8">
+            <section class="border-slate-10 pt-4">
               <h2
-                class="text-sm font-normal text-gray-700 mb-6 flex flex-row items-center"
+                class="text-sm font-semibold text-slate-800 mb-4 flex flex-row items-center"
               >
                 <svg
-                  class="w-6 h-6 mr-2 flex-shrink-0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-4 h-4 mr-2"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                  ></path>
+                  <rect x="3" y="5" width="6" height="6" rx="1" />
+                  <path d="m3 17 2 2 4-4" />
+                  <path d="M13 6h8" />
+                  <path d="M13 12h8" />
+                  <path d="M13 18h8" />
                 </svg>
-                <span>Transactions</span>
+                <span>User Operations</span>
               </h2>
               <div class="border-t border-slate-100">
                 <div
-                  *ngFor="let userOp of details.userOps; let i = index"
-                  class="border-b border-x  border-slate-100 overflow-hidden"
+                  *ngFor="let userOp of details.userOps.slice(1, details.userOps.length); let i = index"
+                  class="border-b border-x border-slate-100 overflow-hidden"
                 >
                   <div
                     (click)="toggleUserOp(i)"
@@ -265,39 +343,69 @@
                     class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 bg-white cursor-pointer hover:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div class="flex items-center space-x-4 mb-2 sm:mb-0">
-                      <span class="text-sm font-normal text-gray-700"
+                      <span class="text-sm font-normal text-slate-700"
                         >#{{ i + 1 }}</span
                       >
-                      <span *ngIf="userOp.executionStatus === 'PENDING'; then loader"></span>
                       <span
-                        class="text-sm flex flex-row gap-x-2 items-center text-gray-500 bg-gray-100 px-3 py-1 rounded-md"
-                        >
-                        <img class="h-4" src="../../../assets/networks/{{getChainName(userOp.chainId).toLowerCase()}}.svg" alt="" srcset="">
+                        *ngIf="
+                          userOp.executionStatus === 'PENDING';
+                          then loader
+                        "
+                      ></span>
+                      <span
+                        class="text-sm flex flex-row gap-x-2 items-center text-slate-500 bg-gray-100 px-3 py-1 rounded-md"
+                      >
+                        <img
+                          class="h-4"
+                          src="../../../assets/networks/{{
+                            getChainName(userOp.chainId).toLowerCase()
+                          }}.svg"
+                          alt=""
+                          srcset=""
+                        />
                         {{ getChainName(userOp.chainId) }} ({{
                           userOp.chainId
                         }})</span
                       >
-                      <span class="text-indigo-700 bg-indigo-50 rounded-md py-1 px-4" *ngIf="i === 0">
-                        Fee payment tx
-                      </span>
-                      <a *ngIf="userOp.executionData" (click)="$event.stopPropagation()" 
-                      target="_blank" 
-                      href="https://scope.sh/{{userOp.chainId}}/tx/{{userOp.executionData}}" 
-                      class="underline hover:text-indigo-700 text-slate-500 flex flex-row gap-x-2 items-center">
-                        {{userOp.userOpHash}}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                          </svg>
-                          
+                      <!-- <span
+                        class="text-indigo-700 text-sm font-semibold bg-indigo-50 rounded-md py-1 px-4"
+                        *ngIf="i === 0"
+                      >
+                        Tx Fee
+                      </span> -->
+                      <a
+                        *ngIf="userOp.executionData"
+                        (click)="$event.stopPropagation()"
+                        target="_blank"
+                        href="https://scope.sh/{{ userOp.chainId }}/op/{{
+                          userOp.userOpHash
+                        }}"
+                        class="underline text-xs hover:text-indigo-700 text-slate-500 flex flex-row gap-x-2 items-center"
+                      >
+                        {{ userOp.userOpHash }}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          class="h-4 w-4"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                          />
+                        </svg>
                       </a>
                     </div>
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2">
                       <span
                         [innerHTML]="getStatusIcon(userOp.executionStatus)"
                         class="w-5 h-5 flex-shrink-0"
                       ></span>
                       <span
-                        class="text-xs uppercase font-normal"
+                        class="text-xs uppercase font-semibold"
                         [ngClass]="{
                           'text-green-600':
                             userOp.executionStatus === 'SUCCESS',
@@ -310,7 +418,7 @@
                       </span>
                       <svg
                         [@rotate]="getExpandState(i)"
-                        class="w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0"
+                        class="w-5 h-5 text-slate-400 transition-transform duration-200 flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -329,15 +437,18 @@
                     class="expandable-content"
                     [ngClass]="{ expanded: getExpandState(i) === 'expanded' }"
                   >
-                    <div class=" bg-[#fcfcfc]">
+                    <div class="bg-[#fcfcfc]">
                       <dl class="flex flex-col">
                         <div
-                          *ngFor="let item of getUserOpItems(userOp); let i = index"
+                          *ngFor="
+                            let item of getUserOpItems(userOp);
+                            let i = index
+                          "
                           [class.bg-white]="i % 2 === 0"
                           class="flex flex-row border-b border-slate-100 pb-1 pt-2 px-4 items-center gap-x-4"
                         >
                           <dt
-                            class="text-sm font-normal w-1/6 text-gray-800 flex items-center"
+                            class="text-sm font-normal w-1/6 text-slate-800 flex items-center"
                           >
                             <span>{{ item.key }}</span>
                           </dt>
@@ -351,7 +462,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </section>
           </div>
@@ -374,8 +484,26 @@
   </body>
 </html>
 
-
 <ng-template #loader>
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-  class="lucide lucide-loader animate-spin"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-loader animate-spin"
+  >
+    <path d="M12 2v4" />
+    <path d="m16.2 7.8 2.9-2.9" />
+    <path d="M18 12h4" />
+    <path d="m16.2 16.2 2.9 2.9" />
+    <path d="M12 18v4" />
+    <path d="m4.9 19.1 2.9-2.9" />
+    <path d="M2 12h4" />
+    <path d="m4.9 4.9 2.9 2.9" />
+  </svg>
 </ng-template>

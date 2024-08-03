@@ -1,8 +1,7 @@
 /* styles.css */
 
 /* Import Inter font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 /* Apply Tailwind's base styles */
 @tailwind base;
 @tailwind components;
@@ -10,7 +9,7 @@
 
 /* Apply the font to the entire body */
 body {
-  font-family: monospace;
+  font-family: "Source Code Pro", monospace;
 }
 
 /* You can also create utility classes for different font weights if needed */
@@ -19,7 +18,11 @@ body {
 }
 
 .font-normal {
-  font-weight: 400;
+  font-weight: 400; 
+}
+
+.text-xs {
+  font-size: 0.82rem
 }
 
 
