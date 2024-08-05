@@ -7,9 +7,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Cascadia Code';
+  src: url('./assets/fonts/CascadiaCode.ttf')
+}
+
 /* Apply the font to the entire body */
 body {
-  font-family: "Source Code Pro", monospace;
+  font-family: "Cascadia Code", monospace;
 }
 
 /* You can also create utility classes for different font weights if needed */

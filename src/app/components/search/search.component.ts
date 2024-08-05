@@ -31,7 +31,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
                 required
                 [(ngModel)]="hash"
                 class="appearance-none text-center
-                 relative block w-full px-8 py-4 !outline-none placeholder:font-sans
+                 relative block w-full px-8 py-4 !outline-none placeholder:
                   border-slate-100 placeholder-gray-500 text-gray-900 rounded-full focus:z-10 sm:text-sm"
                 placeholder="Paste interchain transaction hash"
                 (input)="onInput()"
@@ -61,7 +61,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
                     clip-rule="evenodd"
                   />
                 </svg>
-              <div class="font-sans">
+              <div class="">
                 Search
               </div>
               

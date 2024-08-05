@@ -32,13 +32,17 @@
   </head>
   <body>
     <div
-      class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 text-slate-900 antialiased"
+      class="min-h-screen bg-gradient-to-br from-white to-[#fbfafa] py-12 px-4 sm:px-6 lg:px-8 text-slate-900 antialiased"
     >
       <div class="max-w-7xl mx-auto flex flex-col gap-y-4">
         <div class="mt-8 flex justify-start">
           <button
             routerLink="/"
-            class="inline-flex items-center px-6 py-3 border border-slate-200 text-xs font-normal rounded-md text-slate-800 bg-slate-50 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+            class="inline-flex items-center px-6 py-3 border
+             border-slate-200 text-xs font-normal rounded-md
+              text-slate-800 bg-slate-50 hover:bg-slate-100
+               focus:outline-none focus:ring-2 focus:ring-offset-2 
+                focus:ring-indigo-500 transition duration-150 ease-in-out"
           >
             <svg
               class="w-5 h-5 mr-3 flex-shrink-0"
@@ -59,7 +63,7 @@
         </div>
         <div
           *ngIf="details; else loading"
-          class="bg-white border border-slate-200 rounded-lg overflow-hidden"
+          class="bg-white border border-slate-200 rounded-xl overflow-hidden"
         >
           <!-- Header -->
           <div class="px-4 sm:px-8 py-6 flex flex-row bg-slate-50 border-b border-slate-100 text-slate-800">
@@ -92,7 +96,7 @@
               </svg>
             </div>
             <span class="text-xs flex flex-col ml-2 font-mono break-all">
-              <div class="font-semibold mb-1">Interchain Transaction Hash</div>
+              <div class="font-semibold  mb-1">Interchain Transaction Hash</div>
               <span class="flex-1 !text-slate-500">{{ details.itxHash }}</span>
             </span>
           </div>
@@ -104,7 +108,7 @@
               <dl class="grid grid-cols-1 pb-4 gap-x-6 gap-y-6 sm:grid-cols-2">
                 <div class="sm:col-span-1">
                   <dt
-                    class="text-sm font-semibold text-slate-800 flex items-center"
+                    class="text-sm font-semibold  text-slate-800 flex items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +140,7 @@
                 </div>
                 <div class="sm:col-span-1">
                   <dt
-                    class="text-sm font-semibold text-slate-800 flex items-center"
+                    class="text-sm font-semibold  text-slate-800 flex items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +171,7 @@
             </section>
 
             <h2
-              class="text-sm font-semibold text-slate-700 flex items-center pb-0 sm:mb-0"
+              class="text-sm font-semibold  text-slate-700 flex items-center pb-0 sm:mb-0"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
