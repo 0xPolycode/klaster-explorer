@@ -184,7 +184,7 @@
             <span>Transaction Fee Operation</span>
           </h2>
           <!-- Payment Info Section -->
-          <section class="border border-slate-100 mt-0 pt-0">
+          <section class="border border-slate-100 mt-0 pt-0 pb-0">
             <div
               class="flex flex-col sm:flex-row justify-between items-start sm:items-center cursor-pointer hover:bg-slate-50 transition duration-150 ease-in-out rounded-md py-2 px-2"
               (click)="togglePaymentInfo()"
@@ -197,7 +197,7 @@
                 >
                   <span
                     class="px-5 py-2 bg-slate-50 text-blue-800 rounded-sm font-medium"
-                    >${{ details.paymentInfo.tokenValue }}</span
+                    >${{ details.paymentInfo.tokenValue }}*</span
                   >
                   <span
                     class="px-5 py-2 flex flex-row items-center gap-x-2 bg-slate-50 text-indigo-800 rounded-sm font-medium"
@@ -303,6 +303,9 @@
               </div>
             </div>
           </section>
+          <div class="-pt-4 text-xs text-slate-500 w-full flex flex-row justify-end">
+            Maximum possible transaction cost. Actual cost will be lower.*
+          </div>
 
           <!-- User Operations Section -->
           <section class="border-slate-10 pt-4">
