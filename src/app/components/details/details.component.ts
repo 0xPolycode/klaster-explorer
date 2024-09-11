@@ -13,6 +13,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { arbitrum, avalanche, base, optimism, polygon, scroll } from 'viem/chains'
 
 interface PaymentInfo {
   chainId: string;
@@ -111,8 +112,12 @@ export class DetailsComponent implements OnInit {
         }),
       ).subscribe(
         (data: HashDetails) => {
-          this.details = data;
-          this.expandedUserOps = new Array(data.userOps.length).fill(false);
+          if(data !== this.details) {
+            this.details = data;
+          }
+          this.expandedUserOps = data.userOps.map((x, i) => {
+            return this.expandedUserOps.at(i) ?? false
+          })
           this.loadChainAndTokenNames(data);
         },
         (error: any) => alert(`Error fetching! Check node URL. ${error.message}`)
@@ -236,6 +241,32 @@ export class DetailsComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(
       icons[status.toUpperCase()] || icons['PENDING']
     );
+  }
+
+  getExplorerForChainId(chainIds: string) {
+    const chainId = parseInt(chainIds)
+    const idExplorerMap = [
+      optimism, base, polygon, scroll, avalanche, arbitrum
+    ].map(chain => {
+      return {
+        id: chain.id,
+        explorer: chain.blockExplorers.default
+      }
+    })
+    return idExplorerMap.find(x => x.id === chainId)?.explorer
+  }
+
+  getNameForChainId(chainIds: string) {
+    const chainId = parseInt(chainIds)
+    const idExplorerMap = [
+      optimism, base, polygon, scroll, avalanche, arbitrum
+    ].map(chain => {
+      return {
+        id: chain.id,
+        name: chain.name
+      }
+    })
+    return idExplorerMap.find(x => x.id === chainId)?.name
   }
 
   goBack() {

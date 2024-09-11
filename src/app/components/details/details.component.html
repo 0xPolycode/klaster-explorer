@@ -202,11 +202,9 @@
                   <span
                     class="px-5 py-2 flex flex-row items-center gap-x-2 bg-slate-50 text-indigo-800 rounded-sm font-medium"
                   >
-                    <img
+                    <img *ngIf="getTokenName(details.paymentInfo.token).toLowerCase() as tokenName"
                       class="h-4 w-4"
-                      src="../../../assets/tokens/{{
-                        getTokenName(details.paymentInfo.token).toLowerCase()
-                      }}.png"
+                      src="../../../assets/tokens/{{tokenName}}.png"
                       alt=""
                       srcset=""
                     />
@@ -232,11 +230,53 @@
                       paymentUserOp.userOpHash
                     }}"
                     (click)="$event.stopPropagation()"
-                    class="flex hover:text-indigo-600 flex-row items-center normal-case underline"
+                    class="flex hover:text-indigo-600 mr-4 flex-row  cursor-pointer items-center normal-case underline"
                     *ngIf="details.userOps.at(0) as paymentUserOp"
                   >
-                    {{ paymentUserOp.userOpHash }}
+                    UserOp Exporer (Scope)
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-move-up-right h-4 w-4"
+                    >
+                      <path d="M13 5H19V11" />
+                      <path d="M19 5L5 19" />
+                    </svg>
                   </a>
+                  <ng-container *ngIf="details.userOps.at(0) as paymentUserOp">
+                    <a
+                    target="_blank"
+                    href="{{explorer.url}}/tx/{{paymentUserOp.executionData}}"
+                    (click)="$event.stopPropagation()"
+                    class="flex hover:text-indigo-600 flex-row items-center normal-case underline"
+                    *ngIf="getExplorerForChainId(paymentUserOp.chainId) as explorer"
+                  >
+                    Transaction Explorer ({{explorer.name}})
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-move-up-right h-4 w-4"
+                    >
+                      <path d="M13 5H19V11" />
+                      <path d="M19 5L5 19" />
+                    </svg>
+                  </a>
+                  </ng-container>
+
                 </div>
               </div>
               <div>
@@ -303,7 +343,9 @@
               </div>
             </div>
           </section>
-          <div class="-pt-4 text-xs text-slate-500 w-full flex flex-row justify-end">
+          <div
+            class="-pt-4 text-xs text-slate-500 w-full flex flex-row justify-end"
+          >
             Maximum possible transaction cost. Actual cost will be lower.*
           </div>
 
@@ -377,15 +419,16 @@
                         Tx Fee
                       </span> -->
                     <a
+                      (onHover)="$event.stopPropagation()"
                       *ngIf="userOp.executionData"
                       (click)="$event.stopPropagation()"
                       target="_blank"
                       href="https://scope.sh/{{ userOp.chainId }}/op/{{
                         userOp.userOpHash
                       }}"
-                      class="underline text-xs hover:text-indigo-700 text-slate-500 flex flex-row gap-x-2 items-center"
+                      class="link-container text-xs text-slate-500 flex flex-row gap-x-2 items-center"
                     >
-                      {{ userOp.userOpHash }}
+                      UserOp Explorer
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -401,6 +444,55 @@
                         />
                       </svg>
                     </a>
+                    <ng-container *ngIf="userOp.executionData as executionData">
+                      <a
+                      *ngIf="getExplorerForChainId(userOp.chainId) as explorer"
+                      (click)="$event.stopPropagation()"
+                      target="_blank"
+                      href="{{explorer.url}}/tx/{{executionData}}"
+                      class="link-container text-xs text-slate-500 flex flex-row gap-x-2 items-center"
+                    >
+                      {{explorer.name}}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="h-4 w-4"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                        />
+                      </svg>
+                    </a>
+                    <a
+                      *ngIf="getNameForChainId(userOp.chainId) as name"
+                      (click)="$event.stopPropagation()"
+                      target="_blank"
+                      href="https://dashboard.tenderly.co/tx/{{name.toLowerCase()}}/{{executionData}}"
+                      class=" link-container text-xs text-slate-500 flex flex-row gap-x-2 items-center"
+                    >
+                      Tenderly Debugger
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="h-4 w-4"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                        />
+                      </svg>
+                    </a>
+                    </ng-container>
+                    
                   </div>
                   <div class="flex items-center space-x-2">
                     <span
