@@ -13,7 +13,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { arbitrum, avalanche, base, optimism, polygon, scroll } from 'viem/chains'
+import { arbitrum, arbitrumSepolia, avalanche, base, baseSepolia, optimism, optimismSepolia, polygon, scroll } from 'viem/chains'
 
 interface PaymentInfo {
   chainId: string;
@@ -258,15 +258,16 @@ export class DetailsComponent implements OnInit {
 
   getNameForChainId(chainIds: string) {
     const chainId = parseInt(chainIds)
-    const idExplorerMap = [
-      optimism, base, polygon, scroll, avalanche, arbitrum
-    ].map(chain => {
-      return {
-        id: chain.id,
-        name: chain.name
-      }
-    })
-    return idExplorerMap.find(x => x.id === chainId)?.name
+    switch(chainId) {
+      case optimism.id: return 'optimistic';
+      case base.id: return 'base';
+      case baseSepolia.id: return 'base-sepolia';
+      case optimismSepolia.id: return 'optimistic-sepolia';
+      case polygon.id: return 'polygon';
+      case arbitrum.id: return 'arbitrum';
+      case arbitrumSepolia.id: return 'arbitrum-sepolia';
+    }
+    return ''
   }
 
   goBack() {
